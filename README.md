@@ -2,7 +2,8 @@
 
 Site pour présenter votre salle et permettre aux visiteurs de vérifier les
 disponibilités, envoyer une demande de réservation et payer un acompte en
-ligne. Construit avec Next.js, Prisma (SQLite) et SumUp.
+ligne. Construit avec Next.js, Prisma (Postgres) et SumUp — prêt à déployer
+sur Vercel.
 
 ## Fonctionnalités
 
@@ -39,18 +40,23 @@ npm install
 cp .env.example .env
 ```
 
+Le site utilise une base Postgres (`DATABASE_URL` dans `.env`) — en local,
+le plus simple est une base gratuite chez [Neon](https://neon.tech) ou
+[Supabase](https://supabase.com) (quelques clics, aucune carte requise),
+ou une instance Postgres locale si vous en avez déjà une.
+
 Complétez le fichier `.env` (voir détail des variables ci-dessous), puis :
 
 ```bash
-npm run db:migrate   # crée la base SQLite locale (dev.db)
-npm run dev           # http://localhost:3000
+npm run db:migrate   # applique le schéma sur votre base Postgres
+npm run dev            # http://localhost:3000
 ```
 
 ## 3. Variables d'environnement
 
 | Variable | Description |
 |---|---|
-| `DATABASE_URL` | Base SQLite locale, par défaut `file:./dev.db`. |
+| `DATABASE_URL` | Chaîne de connexion Postgres (`postgresql://user:password@host:5432/db?schema=public`). |
 | `NEXT_PUBLIC_APP_URL` | URL publique du site (emails, redirections SumUp). |
 | `ADMIN_EMAIL` | Email de connexion à `/admin`. |
 | `ADMIN_PASSWORD_HASH` | Hash du mot de passe admin — généré avec `npm run hash-password -- "mot_de_passe"`. |
@@ -103,24 +109,42 @@ Le pourcentage d'acompte se règle dans `src/lib/content.ts`
    adresse (`RESEND_FROM_EMAIL`), ou utilisez `onboarding@resend.dev` pour
    tester sans domaine vérifié.
 
-## 6. Déploiement
+## 6. Déploiement sur Vercel
 
-Le projet est un site Next.js standard (App Router). Il peut être déployé
-sur Vercel ou tout hébergeur supportant Next.js.
+Le projet est prêt à être déployé tel quel sur [Vercel](https://vercel.com)
+(`vercel.json` applique automatiquement les migrations Prisma à chaque
+déploiement).
 
-> **Important** : la base SQLite (`dev.db`) est un simple fichier sur
-> disque. Elle convient pour un déploiement sur un serveur/VPS classique
-> avec disque persistant, mais **pas** pour un hébergement serverless
-> (Vercel, etc.) où le système de fichiers n'est pas persistant. Pour un
-> déploiement serverless, remplacez SQLite par une base Postgres : changez
-> `provider = "sqlite"` en `provider = "postgresql"` dans
-> `prisma/schema.prisma`, utilisez l'adapter `@prisma/adapter-pg` dans
-> `src/lib/prisma.ts`, et pointez `DATABASE_URL` vers votre base Postgres
-> (voir la doc Prisma pour le détail de la migration).
+1. **Créez un compte Vercel** (gratuit) sur [vercel.com](https://vercel.com)
+   en vous connectant avec votre compte GitHub.
+2. Cliquez sur **Add New → Project**, puis choisissez le dépôt
+   `New-festas` (celui-ci) dans la liste.
+3. Avant de cliquer sur *Deploy*, ouvrez **Environment Variables** et
+   ajoutez toutes les variables listées dans le tableau ci-dessus
+   (`ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`,
+   `SUMUP_API_KEY`, `SUMUP_MERCHANT_CODE`, `RESEND_API_KEY`,
+   `OWNER_EMAIL`, `RESEND_FROM_EMAIL`). Laissez `NEXT_PUBLIC_APP_URL`
+   pour l'instant, on la complétera après.
+4. Pour `DATABASE_URL`, le plus simple est d'ajouter une base
+   directement depuis Vercel : dans votre projet, onglet **Storage →
+   Create Database**, choisissez **Postgres** (ou **Neon**, proposé par
+   défaut sur le plan gratuit) — la variable `DATABASE_URL` est alors
+   ajoutée automatiquement à votre projet.
+5. Cliquez sur **Deploy**. Vercel installe les dépendances, applique les
+   migrations Prisma sur votre base, puis construit et met en ligne le
+   site. Vous obtenez une adresse du type
+   `https://new-festas-xxxx.vercel.app`.
+6. Retournez dans **Settings → Environment Variables**, mettez à jour
+   `NEXT_PUBLIC_APP_URL` avec cette adresse (ou votre nom de domaine si
+   vous en branchez un dans **Settings → Domains**), puis redéployez
+   (**Deployments → ⋯ → Redeploy**) pour que les liens dans les emails et
+   les redirections SumUp pointent au bon endroit.
 
-Pensez à définir toutes les variables d'environnement ci-dessus chez votre
-hébergeur, et à mettre à jour `NEXT_PUBLIC_APP_URL` avec votre domaine
-final.
+Une fois en ligne, l'espace propriétaire est accessible sur
+`https://votre-domaine/admin`.
+
+> Chaque nouveau `git push` sur cette branche redéploie automatiquement
+> le site sur Vercel.
 
 ## Commandes utiles
 

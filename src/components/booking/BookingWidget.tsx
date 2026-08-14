@@ -92,7 +92,7 @@ export function BookingWidget() {
 
   if (submitState.status === "success") {
     return (
-      <div className="rounded-3xl border border-border bg-card p-10 text-center">
+      <div className="glass-card p-10 text-center">
         <h3 className="font-serif text-2xl text-foreground">Demande envoyée !</h3>
         <p className="mt-3 text-muted">
           Merci, votre demande a bien été transmise. Vous recevrez une confirmation par email
@@ -119,7 +119,7 @@ export function BookingWidget() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 rounded-3xl border border-border bg-card p-6"
+        className="glass-card flex flex-col gap-4 p-6"
       >
         <div>
           <p className="text-sm font-semibold text-foreground">Période sélectionnée</p>
@@ -181,7 +181,7 @@ export function BookingWidget() {
         </Field>
 
         {submitState.status === "error" && (
-          <p className="text-sm text-red-600">{submitState.message}</p>
+          <p className="text-sm text-red-400">{submitState.message}</p>
         )}
 
         <button
@@ -209,7 +209,7 @@ function Field({
     <label className="block text-sm">
       <span className="font-medium text-foreground">{label}</span>
       <div className="mt-1">{children}</div>
-      {error && <span className="mt-1 block text-xs text-red-600">{error}</span>}
+      {error && <span className="mt-1 block text-xs text-red-400">{error}</span>}
     </label>
   );
 }

@@ -7,8 +7,8 @@ import { Section } from "@/components/home/Section";
 export function Pricing() {
   return (
     <Section id="tarifs" eyebrow="Tarifs" title="Une formule simple et transparente">
-      <div className="grid gap-8 sm:grid-cols-[2fr_1fr]">
-        <div className="rounded-3xl border border-border bg-card p-8">
+      <div className="grid gap-6 sm:grid-cols-[2fr_1fr]">
+        <div className="glass-card p-8 text-left shadow-[0_0_60px_-25px_var(--accent)]">
           <p className="font-serif text-4xl text-foreground">
             {formatCents(siteContent.pricing.perDayCents)}
             <span className="ml-2 text-base font-sans font-normal text-muted">/ jour</span>
@@ -21,9 +21,9 @@ export function Pricing() {
             Vérifier les disponibilités
           </Link>
         </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5">
-            <Users className="h-6 w-6 text-accent" />
+        <div className="flex flex-col gap-4 text-left">
+          <div className="glass-card flex items-center gap-3 p-5">
+            <Users className="h-6 w-6 shrink-0 text-accent" />
             <div>
               <p className="font-semibold text-foreground">
                 {siteContent.capacity.seated} assis / {siteContent.capacity.standing} debout
@@ -31,15 +31,15 @@ export function Pricing() {
               <p className="text-sm text-muted">Capacité d&apos;accueil</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5">
-            <Ruler className="h-6 w-6 text-accent" />
+          <div className="glass-card flex items-center gap-3 p-5">
+            <Ruler className="h-6 w-6 shrink-0 text-accent" />
             <div>
               <p className="font-semibold text-foreground">{siteContent.surfaceM2} m²</p>
               <p className="text-sm text-muted">Surface totale</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-5">
-            <Percent className="h-6 w-6 text-accent" />
+          <div className="glass-card flex items-center gap-3 p-5">
+            <Percent className="h-6 w-6 shrink-0 text-accent" />
             <div>
               <p className="font-semibold text-foreground">
                 {siteContent.pricing.depositPercent}% d&apos;acompte

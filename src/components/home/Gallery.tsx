@@ -13,7 +13,7 @@ export function Gallery() {
         {siteContent.gallery.map((photo) => (
           <div
             key={photo.src}
-            className="relative aspect-square overflow-hidden rounded-2xl bg-accent-soft"
+            className="relative aspect-square overflow-hidden rounded-2xl border border-border bg-accent-soft"
           >
             <Image
               src={photo.src}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { siteContent } from "@/lib/content";
+import { Glow } from "@/components/ui/Glow";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -34,8 +35,9 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-6">
-      <div className="w-full max-w-sm rounded-3xl border border-border bg-card p-8">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-6">
+      <Glow variant="hero" />
+      <div className="w-full max-w-sm glass-card p-8">
         <p className="font-serif text-xl text-foreground">{siteContent.shortName}</p>
         <h1 className="mt-1 text-sm text-muted">Espace propriétaire</h1>
 
@@ -61,7 +63,7 @@ export default function AdminLoginPage() {
             />
           </label>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-400">{error}</p>}
 
           <button
             type="submit"

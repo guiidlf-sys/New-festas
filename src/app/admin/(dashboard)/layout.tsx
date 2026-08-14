@@ -12,7 +12,7 @@ export default async function AdminDashboardLayout({ children }: LayoutProps<"/a
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
+      <header className="border-b border-border bg-card-strong backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div>
             <p className="font-serif text-lg text-foreground">{siteContent.shortName}</p>

@@ -3,7 +3,7 @@ import { siteContent } from "@/lib/content";
 
 export function Footer() {
   return (
-    <footer id="contact" className="border-t border-border bg-card">
+    <footer id="contact" className="border-t border-border bg-card backdrop-blur-xl">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-3">
         <div>
           <p className="font-serif text-lg text-foreground">{siteContent.name}</p>

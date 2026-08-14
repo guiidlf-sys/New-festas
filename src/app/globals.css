@@ -1,23 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf6f0;
-  --foreground: #2a2420;
-  --card: #ffffff;
-  --muted: #6b5f54;
-  --border: #e6dccc;
-  --accent: #a8532f;
+  --background: #07060c;
+  --foreground: #f3f1f9;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-strong: rgba(15, 13, 24, 0.75);
+  --muted: #9d97b3;
+  --border: rgba(255, 255, 255, 0.09);
+  --accent: #8b5cf6;
+  --accent-2: #6d5bff;
   --accent-foreground: #ffffff;
-  --accent-soft: #f1e3d3;
+  --accent-soft: rgba(139, 92, 246, 0.16);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-strong: var(--card-strong);
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-inter);
@@ -32,7 +36,15 @@ body {
 
 @layer components {
   .input {
-    @apply w-full rounded-lg border border-border bg-background px-3 py-2 text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20;
+    @apply w-full rounded-lg border border-border bg-white/[0.03] px-3 py-2 text-foreground outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/25;
+  }
+
+  .glass-card {
+    @apply relative rounded-3xl border border-border bg-gradient-to-b from-white/[0.06] to-white/[0.015] backdrop-blur-xl;
+  }
+
+  .pill-badge {
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent;
   }
 }
 
@@ -41,8 +53,17 @@ body {
   --rdp-accent-background-color: var(--accent-soft);
   --rdp-today-color: var(--accent);
   width: 100%;
+  color: var(--foreground);
 }
 
 .booking-calendar .rdp-months {
   justify-content: space-between;
+}
+
+.booking-calendar .rdp-weekday {
+  color: var(--muted);
+}
+
+.booking-calendar .rdp-day_button:hover:not([disabled]) {
+  background-color: var(--accent-soft);
 }

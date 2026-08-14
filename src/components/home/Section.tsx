@@ -7,6 +7,7 @@ export function Section({
   description,
   children,
   bgClassName = "",
+  align = "center",
 }: {
   id?: string;
   eyebrow?: string;
@@ -14,16 +15,14 @@ export function Section({
   description?: string;
   children: ReactNode;
   bgClassName?: string;
+  align?: "center" | "left";
 }) {
+  const isCentered = align === "center";
   return (
-    <section id={id} className={bgClassName}>
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <div className="mb-12 max-w-2xl">
-          {eyebrow && (
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-accent">
-              {eyebrow}
-            </p>
-          )}
+    <section id={id} className={`relative ${bgClassName}`}>
+      <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+        <div className={`mb-14 flex flex-col ${isCentered ? "items-center text-center mx-auto max-w-2xl" : "max-w-2xl"}`}>
+          {eyebrow && <span className="pill-badge mb-4">{eyebrow}</span>}
           <h2 className="font-serif text-3xl text-foreground sm:text-4xl">{title}</h2>
           {description && <p className="mt-4 text-muted">{description}</p>}
         </div>

@@ -18,7 +18,7 @@ export function AvailabilityCalendar({
   const disabledMatchers: Matcher[] = [{ before: new Date() }, ...busyRanges];
 
   return (
-    <div className="booking-calendar rounded-3xl border border-border bg-card p-4 sm:p-6">
+    <div className="booking-calendar glass-card p-4 sm:p-6">
       <DayPicker
         mode="range"
         locale={fr}

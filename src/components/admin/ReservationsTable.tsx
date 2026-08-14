@@ -13,10 +13,10 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 const STATUS_STYLES: Record<string, string> = {
-  pending: "bg-amber-100 text-amber-800",
-  confirmed: "bg-blue-100 text-blue-800",
-  paid: "bg-green-100 text-green-800",
-  cancelled: "bg-zinc-200 text-zinc-600",
+  pending: "bg-amber-400/15 text-amber-300",
+  confirmed: "bg-blue-400/15 text-blue-300",
+  paid: "bg-emerald-400/15 text-emerald-300",
+  cancelled: "bg-white/10 text-muted",
 };
 
 const FILTERS: { key: string; label: string }[] = [
@@ -77,13 +77,13 @@ export function ReservationsTable({ reservations }: { reservations: ReservationM
       </div>
 
       {filtered.length === 0 ? (
-        <p className="rounded-2xl border border-border bg-card p-8 text-center text-muted">
+        <p className="glass-card p-8 text-center text-muted">
           Aucune réservation dans cette catégorie.
         </p>
       ) : (
         <div className="flex flex-col gap-4">
           {filtered.map((r) => (
-            <div key={r.id} className="rounded-2xl border border-border bg-card p-6">
+            <div key={r.id} className="glass-card p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-3">
@@ -149,7 +149,7 @@ export function ReservationsTable({ reservations }: { reservations: ReservationM
                 </div>
               </div>
               {errorFor && errorFor.id === r.id && (
-                <p className="mt-3 text-sm text-red-600">{errorFor.message}</p>
+                <p className="mt-3 text-sm text-red-400">{errorFor.message}</p>
               )}
             </div>
           ))}

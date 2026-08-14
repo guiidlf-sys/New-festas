@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { siteContent } from "@/lib/content";
+import { capacityLabel } from "@/lib/pricing";
 import { Glow } from "@/components/ui/Glow";
 
 export function Hero() {
@@ -14,9 +15,8 @@ export function Hero() {
           {siteContent.tagline}
         </h1>
         <p className="mt-6 max-w-xl text-balance text-muted">
-          {siteContent.capacity.seated} personnes assises · {siteContent.capacity.standing}{" "}
-          en cocktail · {siteContent.surfaceM2} m². Un lieu clé en main pour vos mariages,
-          anniversaires et événements d&apos;entreprise.
+          {capacityLabel()} · {siteContent.surfaceM2} m². Un lieu clé en main pour vos
+          mariages, anniversaires et événements d&apos;entreprise.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <Link

@@ -1,5 +1,12 @@
 import { siteContent } from "@/lib/content";
 
+export function capacityLabel(): string {
+  const { seated, standing } = siteContent.capacity;
+  return seated === standing
+    ? `Jusqu'à ${seated} personnes`
+    : `${seated} personnes assises · ${standing} en cocktail`;
+}
+
 /** Nombre de jours facturés entre deux dates (inclusif, minimum 1). */
 export function countDays(startDate: Date, endDate: Date): number {
   const msPerDay = 24 * 60 * 60 * 1000;

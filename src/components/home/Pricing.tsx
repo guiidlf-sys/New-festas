@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Users, Ruler, Percent } from "lucide-react";
 import { siteContent } from "@/lib/content";
-import { formatCents } from "@/lib/pricing";
+import { capacityLabel, formatCents } from "@/lib/pricing";
 import { Section } from "@/components/home/Section";
 
 export function Pricing() {
@@ -25,9 +25,7 @@ export function Pricing() {
           <div className="glass-card flex items-center gap-3 p-5">
             <Users className="h-6 w-6 shrink-0 text-accent" />
             <div>
-              <p className="font-semibold text-foreground">
-                {siteContent.capacity.seated} assis / {siteContent.capacity.standing} debout
-              </p>
+              <p className="font-semibold text-foreground">{capacityLabel()}</p>
               <p className="text-sm text-muted">Capacité d&apos;accueil</p>
             </div>
           </div>

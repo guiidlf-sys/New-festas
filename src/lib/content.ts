@@ -6,26 +6,28 @@
  */
 
 export const siteContent = {
-  name: "Votre Salle de Réception",
-  shortName: "Votre Salle",
+  name: "New Festas",
+  shortName: "New Festas",
   tagline: "Le lieu idéal pour vos mariages, anniversaires et événements d'entreprise",
-  city: "Votre Ville",
-  address: "12 rue de l'Exemple, 75000 Votre Ville",
-  mapsQuery: "12 rue de l'Exemple, 75000 Votre Ville",
+  city: "Chelles",
+  address: "7 rue Henri Becquerel, 77500 Chelles",
+  mapsQuery: "7 rue Henri Becquerel, 77500 Chelles",
 
+  // TODO : remplacez par une vraie description de la salle (ambiance, matériel, particularités).
   description:
-    "Nichée au cœur de [Votre Ville], notre salle allie charme authentique et confort moderne. Baignée de lumière naturelle, elle s'adapte aussi bien à un mariage intimiste qu'à une grande soirée d'entreprise. Parking sur place, cuisine équipée et espace extérieur privatif complètent cet écrin pensé pour que vos invités se sentent chez eux.",
+    "Nichée au cœur de Chelles, notre salle allie charme authentique et confort moderne. Baignée de lumière naturelle, elle s'adapte aussi bien à un mariage intimiste qu'à une grande soirée d'entreprise. Parking sur place, cuisine équipée et espace extérieur privatif complètent cet écrin pensé pour que vos invités se sentent chez eux.",
 
   capacity: {
     seated: 80,
-    standing: 150,
+    standing: 80,
   },
+  // TODO : surface réelle de la salle en m².
   surfaceM2: 200,
 
   amenities: [
+    "Tables et chaises Napoléon incluses",
     "Cuisine équipée (four, plaques, réfrigérateur)",
     "Sonorisation et éclairage d'ambiance",
-    "Tables et chaises incluses",
     "Parking privé gratuit",
     "Accès PMR",
     "Terrasse / espace extérieur",
@@ -43,11 +45,11 @@ export const siteContent = {
   ],
 
   pricing: {
-    // Prix en centimes (ex : 45000 = 450,00 €)
-    perDayCents: 45000,
+    // Prix en centimes (ex : 80000 = 800,00 €)
+    perDayCents: 80000,
     depositPercent: 30,
     currency: "EUR",
-    note: "Tarif indicatif pour la journée (accès la veille pour l'installation sur demande). Un acompte est demandé pour confirmer la réservation, le solde étant réglé avant l'événement.",
+    note: "Tarif pour la journée, de 15h à 22h (horaires modifiables sur demande). Tables et chaises Napoléon inclus. Un acompte est demandé pour confirmer la réservation, le solde étant réglé avant l'événement.",
   },
 
   gallery: [
@@ -57,11 +59,14 @@ export const siteContent = {
     { src: "/images/placeholder-4.svg", alt: "Coin bar et cuisine équipée" },
   ],
 
+  // TODO : remplacez par la vraie adresse email et le vrai numéro de téléphone.
   contact: {
     email: "contact@example.com",
     phone: "06 12 34 56 78",
   },
 
+  // TODO : remplacez par de vrais avis clients avant la mise en ligne (ceux-ci sont des
+  // exemples fictifs, à ne pas publier tels quels).
   testimonials: [
     {
       quote:

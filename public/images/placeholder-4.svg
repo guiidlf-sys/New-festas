@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Coin bar et cuisine équipée">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f3e8e0"/>
+      <stop offset="100%" stop-color="#cf9c86"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g4)"/>
+  <g stroke="#7a3b2e" stroke-width="3" fill="none" opacity="0.55" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M540 320 L540 420 Q540 460 580 460 Q620 460 620 420 L620 320 Z"/>
+    <line x1="580" y1="460" x2="580" y2="540"/>
+    <line x1="540" y1="540" x2="620" y2="540"/>
+    <path d="M660 330 q30 0 30 40 v70 q0 20 -20 20" />
+  </g>
+  <text x="600" y="740" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#652f22" opacity="0.6">Photo à venir</text>
+</svg>

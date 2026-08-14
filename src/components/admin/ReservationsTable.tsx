@@ -106,9 +106,9 @@ export function ReservationsTable({ reservations }: { reservations: ReservationM
                     {formatCents(r.totalPriceCents)}
                     {r.depositCents ? ` · Acompte ${formatCents(r.depositCents)}` : ""}
                   </p>
-                  {r.stripePaymentUrl && (
+                  {r.paymentUrl && (
                     <a
-                      href={r.stripePaymentUrl}
+                      href={r.paymentUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="mt-2 inline-block text-sm text-accent hover:underline"

@@ -2,7 +2,7 @@
 
 Site pour présenter votre salle et permettre aux visiteurs de vérifier les
 disponibilités, envoyer une demande de réservation et payer un acompte en
-ligne. Construit avec Next.js, Prisma (SQLite) et Stripe.
+ligne. Construit avec Next.js, Prisma (SQLite) et SumUp.
 
 ## Fonctionnalités
 
@@ -10,12 +10,13 @@ ligne. Construit avec Next.js, Prisma (SQLite) et Stripe.
 - **Réservation en ligne** (`/reserver`) : calendrier de disponibilité +
   formulaire de demande. Les dates déjà réservées sont grisées.
 - **Espace propriétaire** (`/admin`) : liste des demandes, confirmation /
-  refus, génération d'un lien de paiement Stripe, suivi des statuts.
+  refus, génération d'un lien de paiement SumUp, suivi des statuts.
 - **Emails automatiques** (Resend) : notification au propriétaire pour
   chaque nouvelle demande, email de confirmation avec lien de paiement au
   client.
-- **Paiement en ligne** (Stripe Checkout) : acompte réglable par carte,
-  webhook pour marquer la réservation payée automatiquement.
+- **Paiement en ligne** (SumUp Checkout) : acompte réglable par carte via
+  un lien de paiement hébergé par SumUp, mise à jour automatique du
+  statut par webhook.
 
 ## 1. Personnaliser le contenu
 
@@ -50,12 +51,12 @@ npm run dev           # http://localhost:3000
 | Variable | Description |
 |---|---|
 | `DATABASE_URL` | Base SQLite locale, par défaut `file:./dev.db`. |
-| `NEXT_PUBLIC_APP_URL` | URL publique du site (emails, redirections Stripe). |
+| `NEXT_PUBLIC_APP_URL` | URL publique du site (emails, redirections SumUp). |
 | `ADMIN_EMAIL` | Email de connexion à `/admin`. |
 | `ADMIN_PASSWORD_HASH` | Hash du mot de passe admin — généré avec `npm run hash-password -- "mot_de_passe"`. |
 | `SESSION_SECRET` | Chaîne aléatoire pour signer les sessions (`openssl rand -hex 32`). |
-| `STRIPE_SECRET_KEY` | Clé secrète Stripe ([dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys)). |
-| `STRIPE_WEBHOOK_SECRET` | Secret du webhook Stripe (`/api/webhooks/stripe`). |
+| `SUMUP_API_KEY` | Clé API SumUp ([me.sumup.com](https://me.sumup.com) → Profil → Réglages → For Developers → Toolkit → API Keys). |
+| `SUMUP_MERCHANT_CODE` | Code marchand SumUp, visible dans les réglages de votre compte. |
 | `RESEND_API_KEY` | Clé API Resend ([resend.com/api-keys](https://resend.com/api-keys)). |
 | `OWNER_EMAIL` | Adresse qui reçoit les notifications de nouvelle demande. |
 | `RESEND_FROM_EMAIL` | Adresse d'expédition des emails (domaine vérifié sur Resend, ou `onboarding@resend.dev` pour tester). |
@@ -68,22 +69,28 @@ mise en ligne** avec :
 npm run hash-password -- "votre_nouveau_mot_de_passe"
 ```
 
-Sans clés Stripe/Resend, le site fonctionne quand même : les demandes de
+Sans clés SumUp/Resend, le site fonctionne quand même : les demandes de
 réservation sont enregistrées et visibles dans `/admin`, seuls l'envoi
 d'emails et la génération du lien de paiement sont désactivés (un message
 vous le rappelle dans le dashboard).
 
-## 4. Configurer Stripe (paiement de l'acompte)
+## 4. Configurer SumUp (paiement de l'acompte)
 
-1. Récupérez votre clé secrète sur
-   [dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys) et
-   renseignez `STRIPE_SECRET_KEY`.
-2. Créez un endpoint de webhook pointant vers
-   `https://votre-domaine.com/api/webhooks/stripe`, événement
-   `checkout.session.completed`, puis copiez le secret de signature dans
-   `STRIPE_WEBHOOK_SECRET`.
-3. En local, utilisez le [Stripe CLI](https://stripe.com/docs/stripe-cli)
-   pour tester : `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
+1. Connectez-vous sur [me.sumup.com](https://me.sumup.com), ouvrez votre
+   profil → Réglages → For Developers → Toolkit → API Keys, puis créez une
+   clé et renseignez-la dans `SUMUP_API_KEY`.
+2. Récupérez votre code marchand dans les réglages de votre compte SumUp
+   et renseignez-le dans `SUMUP_MERCHANT_CODE`.
+3. C'est tout : aucune configuration de webhook n'est nécessaire côté
+   dashboard SumUp — l'application transmet elle-même l'URL de
+   notification (`/api/webhooks/sumup`) à chaque création de lien de
+   paiement.
+
+Quand vous cliquez sur « Confirmer » dans `/admin`, un lien de paiement
+hébergé par SumUp est généré pour le montant de l'acompte et envoyé au
+client par email. Dès que le client paie, SumUp notifie le site qui
+revérifie le statut auprès de l'API SumUp avant de marquer la réservation
+comme payée.
 
 Le pourcentage d'acompte se règle dans `src/lib/content.ts`
 (`pricing.depositPercent`).

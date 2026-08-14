@@ -28,8 +28,8 @@ model Reservation {
 
   totalPriceCents   Int
   depositCents       Int?
-  stripeSessionId     String?
-  stripePaymentUrl    String?
+  paymentCheckoutId   String?
+  paymentUrl          String?
   paidAt              DateTime?
 
   createdAt DateTime @default(now())
